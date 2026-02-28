@@ -318,26 +318,33 @@
         });
        }
 
-       document.getElementById('sendWhatsapp').addEventListener('click', function() {
+       
+    document.getElementById('sendWhatsapp').addEventListener('click', function() {
         const queryParams = getQueryStringParameters();
         const orderId = queryParams.id;
         const customerName = document.getElementById('customerName').textContent;
-        // Get phone and remove any non-numeric characters
-        const rawPhone = document.getElementById('phoneNumber').textContent.replace(/\D/g, '');
-        const total = document.getElementById('total').textContent;
+        
+        // Clean the phone number (removes + and spaces)
+        let phone = document.getElementById('phoneNumber').textContent.replace(/\D/g, '');
+        
+        // Ensure it starts with 91 (India) if it doesn't already
+        if (phone.length === 10) {
+            phone = "91" + phone;
+        }
 
-        // The link to the PDF we created in Step 1
+        const total = document.getElementById('total').textContent;
         const pdfLink = `https://shreecreations-backend-a016.onrender.com/api/orders/${orderId}/pdf`;
 
-        const message = `*Shree Creations - Invoice*%0A%0A` +
+        const message = `*Shree Creations - Invoice*%0A` +
                         `Hello ${customerName},%0A` +
-                        `Your invoice for Order #${orderId} is ready.%0A%0A` +
-                        `*Total Amount:* ${total}%0A` +
-                        `*Download Invoice:* ${pdfLink}%0A%0A` +
-                        `Thank you for shopping with us!`;
+                        `Your invoice for Order #${orderId} is ready.%0A` +
+                        `*Total:* ${total}%0A` +
+                        `*View PDF:* ${pdfLink}`;
 
-        // Opens WhatsApp Web or App
-        window.open(`https://wa.me/${rawPhone}?text=${message}`, '_blank');
+        // Use api.whatsapp.com instead of wa.me to avoid the "Update App" loop on Windows
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${message}`;
+
+        window.open(whatsappUrl, '_blank').focus();
     });
    </script>
 </body>
