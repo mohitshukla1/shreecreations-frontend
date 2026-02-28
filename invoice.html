@@ -329,11 +329,11 @@
         // The link to the PDF we created in Step 1
         const pdfLink = `https://shreecreations-backend-a016.onrender.com/api/orders/${orderId}/pdf`;
 
-        const message = `*Shree Creations - Invoice*%0A%0A` +
-                        `Hello ${customerName},%0A` +
-                        `Your invoice for Order #${orderId} is ready.%0A%0A` +
-                        `*Total Amount:* ${total}%0A` +
-                        `*Download Invoice:* ${pdfLink}%0A%0A` +
+        const message = `Shree Creations - Invoice` +
+                        `Hello ${customerName},` +
+                        `Thank you for Shopping with us,` +
+                        `Total Amount: ${total}` +
+                        `Download Invoice: ${pdfLink}` +
                         `Thank you for shopping with us!`;
         console.log("message",message)
         // Opens WhatsApp Web or App
