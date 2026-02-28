@@ -75,7 +75,9 @@
         <div id="body" class="active">
             <!-- navbar navigation component -->
             <a href="javascript:window.print()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
-            <a href="#" class="btn btn-primary w-md">Send</a>
+            <button id="sendWhatsapp" class="btn btn-primary w-md">
+                <i class="fab fa-whatsapp"></i> Send to WhatsApp
+            </button>
 
 
 
@@ -182,7 +184,7 @@
 
                                                   <div class="img-container">
                                                     <img height="150px";
-                                                    width="200px"; src="D:\shree_creations_app\frontend\assets\img\logo.jpg" alt="Left Image">
+                                                    width="200px"; src="https://shreecreations-frontend.onrender.com/assets/img/logo.jpg" alt="Left Image">
 
                                                   </div>
                                                </div>
@@ -316,6 +318,27 @@
         });
        }
 
+       document.getElementById('sendWhatsapp').addEventListener('click', function() {
+        const queryParams = getQueryStringParameters();
+        const orderId = queryParams.id;
+        const customerName = document.getElementById('customerName').textContent;
+        // Get phone and remove any non-numeric characters
+        const rawPhone = document.getElementById('phoneNumber').textContent.replace(/\D/g, '');
+        const total = document.getElementById('total').textContent;
+
+        // The link to the PDF we created in Step 1
+        const pdfLink = `https://shreecreations-backend-a016.onrender.com/api/orders/${orderId}/pdf`;
+
+        const message = `*Shree Creations - Invoice*%0A%0A` +
+                        `Hello ${customerName},%0A` +
+                        `Your invoice for Order #${orderId} is ready.%0A%0A` +
+                        `*Total Amount:* ${total}%0A` +
+                        `*Download Invoice:* ${pdfLink}%0A%0A` +
+                        `Thank you for shopping with us!`;
+
+        // Opens WhatsApp Web or App
+        window.open(`https://wa.me/${rawPhone}?text=${message}`, '_blank');
+    });
    </script>
 </body>
 
