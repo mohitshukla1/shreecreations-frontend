@@ -66,10 +66,6 @@
     max-height: 100%;
 
   }
-    #printThis {
-        background: white !important;
-        padding: 20px !important;
-    }
     </style>
 </head>
 
@@ -213,8 +209,6 @@
     <script src="assets/vendor/datatables/datatables.min.js"></script>
     <script src="assets/js/initiate-datatables.js"></script>
     <script src="assets/js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
@@ -324,40 +318,27 @@
         });
        }
 
-       
-   document.getElementById('sendWhatsapp').addEventListener('click', async function() {
-    const { jsPDF } = window.jspdf;
-    const element = document.getElementById('printThis'); // The area to capture
-    const invoiceNo = document.getElementById('invoiceNumber').textContent || "Invoice";
-    const customerName = document.getElementById('customerName').textContent;
-    let phone = document.getElementById('phoneNumber').textContent.replace(/\D/g, '');
-    
-    // 1. Generate and Download PDF locally
-    const canvas = await html2canvas(element, { scale: 2 });
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    pdf.save(`${invoiceNo}.pdf`); // Downloads to your computer
+       document.getElementById('sendWhatsapp').addEventListener('click', function() {
+        const queryParams = getQueryStringParameters();
+        const orderId = queryParams.id;
+        const customerName = document.getElementById('customerName').textContent;
+        // Get phone and remove any non-numeric characters
+        const rawPhone = document.getElementById('phoneNumber').textContent.replace(/\D/g, '');
+        const total = document.getElementById('total').textContent;
 
-    // 2. Prepare WhatsApp message
-    if (phone.length === 10) phone = "91" + phone;
-    
-    const message = `*Shree Creations - Invoice*%0A` +
-                    `Hello ${customerName},%0A` +
-                    `Please find your invoice #${invoiceNo} attached below.%0A` +
-                    `Total: ${document.getElementById('total').textContent}`;
+        // The link to the PDF we created in Step 1
+        const pdfLink = `https://shreecreations-backend-a016.onrender.com/api/orders/${orderId}/pdf`;
 
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${message}`;
+        const message = `*Shree Creations - Invoice*%0A%0A` +
+                        `Hello ${customerName},%0A` +
+                        `Your invoice for Order #${orderId} is ready.%0A%0A` +
+                        `*Total Amount:* ${total}%0A` +
+                        `*Download Invoice:* ${pdfLink}%0A%0A` +
+                        `Thank you for shopping with us!`;
 
-    // 3. Open WhatsApp
-    alert("Invoice generated! Now attach the downloaded file in the WhatsApp chat.");
-    window.open(whatsappUrl, '_blank').focus();
-});
+        // Opens WhatsApp Web or App
+        window.open(`https://wa.me/${rawPhone}?text=${message}`, '_blank');
+    });
    </script>
 </body>
 
