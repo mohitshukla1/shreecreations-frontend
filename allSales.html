@@ -170,7 +170,7 @@
 
          });
         function getAllOrders() {
-         const apiUrl = 'http://localhost:8080/api/orders';
+         const apiUrl = 'https://shreecreations-backend-a016.onrender.com/api/orders';
          const method = 'GET';
 
          // Make the API call
@@ -235,7 +235,7 @@
 
 
 
-            const apiUrl = 'http://localhost:8080/api/orders/saleReport';
+            const apiUrl = 'https://shreecreations-backend-a016.onrender.com/api/orders/saleReport';
             const method = 'POST';
             const productData = {
                 startDate,endDate
@@ -274,7 +274,7 @@
 
             let name = $('#name').val();
 
-            const apiUrl = 'http://localhost:8080/api/orders/searchOrder';
+            const apiUrl = 'https://shreecreations-backend-a016.onrender.com/api/orders/searchOrder';
             const method = 'POST';
             const productData = {
                 invoiceId,phoneNumber,name

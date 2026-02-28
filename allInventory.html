@@ -154,7 +154,7 @@
             getAllOrders();
          });
         function getAllOrders() {
-         const apiUrl = 'http://localhost:8080/api/inventory';
+         const apiUrl = 'https://shreecreations-backend-a016.onrender.com/api/inventory';
          const method = 'GET';
 
          // Make the API call
@@ -207,7 +207,7 @@
         }
 
         function removeItem(id) {
-            const apiUrl = 'http://localhost:8080/api/inventory/'+id;;
+            const apiUrl = 'https://shreecreations-backend-a016.onrender.com/api/inventory/'+id;;
 
               // Make the API call
               $.ajax({
@@ -238,7 +238,7 @@
             msg.innerHTML = "";
             let itemCode = $('#itemCode').val();
 
-            const apiUrl = 'http://localhost:8080/api/inventory/searchItemCode';
+            const apiUrl = 'https://shreecreations-backend-a016.onrender.com/api/inventory/searchItemCode';
             const method = 'POST';
             const productData = {
                 itemCode

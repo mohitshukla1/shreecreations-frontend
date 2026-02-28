@@ -271,7 +271,7 @@
             });
            function getInventoryDetails() {
             const queryParams = getQueryStringParameters();
-            const apiUrl = 'http://localhost:8080/api/inventory/editInvenotry/'+queryParams.id;
+            const apiUrl = 'https://shreecreations-backend-a016.onrender.com/api/inventory/editInvenotry/'+queryParams.id;
             const method = 'GET';
 
             // Make the API call
@@ -425,7 +425,7 @@
               };
               const queryParams = getQueryStringParameters();
               // Replace with your actual API endpoint
-              const apiUrl = 'http://localhost:8080/api/inventory/'+queryParams.id;;
+              const apiUrl = 'https://shreecreations-backend-a016.onrender.com/api/inventory/'+queryParams.id;;
 
               // Make the API call
               $.ajax({
