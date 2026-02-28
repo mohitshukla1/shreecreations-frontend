@@ -1,0 +1,149 @@
+<!doctype html>
+<!--
+   * Bootstrap Simple Admin Template
+   * Version: 2.1
+   * Author: Alexis Luna
+   * Website: https://github.com/alexis-luna/bootstrap-simple-admin-template
+   -->
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Shree Creations</title>
+      <link href="assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+      <link href="assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+      <link href="assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+      <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="assets/css/master.css" rel="stylesheet">
+      <link href="assets/vendor/flagiconcss/css/flag-icon.min.css" rel="stylesheet">
+
+   </head>
+   <body>
+      <div class="wrapper">
+         <nav id="sidebar">
+            <div class="sidebar-header">
+               <span style="color:gold">Shree Creations</span>
+               <!-- <img src="assets/img/logo.jpg" height="20px" width="50px" alt="bootraper logo" class="app-logo"> -->
+            </div>
+            <ul class="list-unstyled components text-secondary">
+               <li>
+                  <a href="#uielementsmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Sale</a>
+                  <ul class="collapse list-unstyled" id="uielementsmenu">
+
+                     <li>
+                        <a href="sale.html">Sale Orders</a>
+                     </li>
+                     <li>
+                        <a href="normalSale.html">Sale Orders (Normal)</a>
+                     </li>
+                     <li>
+                        <a href="allSales.html">All Sales</a>
+                     </li>
+
+                  </ul>
+               </li>
+               <li>
+                  <a href="#uielementsinventory" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Inventory</a>
+                  <ul class="collapse list-unstyled" id="uielementsinventory">
+                      <li>
+                          <a href="inventory.html">Inventory</a>
+                      </li>
+                      <li>
+                          <a href="allInventory.html">All Inventory</a>
+                      </li>
+
+
+                  </ul>
+              </li>
+              <li>
+               <a href="#uielementsReport" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Reports</a>
+               <ul class="collapse list-unstyled" id="uielementsReport">
+                  <li>
+                     <a href="saleReport.html">Sale Report</a>
+                  </li>
+                  <li>
+                     <a href="customer.html">Customers</a>
+                 </li>
+               </ul>
+            </li>
+            </ul>
+         </nav>
+         <div id="body" class="active">
+            <!-- navbar navigation component -->
+            <nav class="navbar navbar-expand-lg navbar-white bg-white">
+               <button type="button" id="sidebarCollapse" class="btn btn-light">
+               <i class="fas fa-bars"></i><span></span>
+               </button>
+
+            </nav>
+            <div class="pg-title">
+               <h2 class="page-title">Delete Inventory</h2>
+            </div>
+            <!-- end of navbar navigation -->
+            <div class="content">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-lg-12">
+                        <div class="card" id="msg">
+
+
+                           <!-- Create Order Button -->
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+      <script src="assets/vendor/jquery/jquery.min.js"></script>
+      <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="assets/vendor/datatables/datatables.min.js"></script>
+      <script src="assets/js/initiate-datatables.js"></script>
+      <script src="assets/js/script.js"></script>
+      <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+         <script>
+
+            function getQueryStringParameters() {
+            const queryString = window.location.search.substring(1);
+            const params = {};
+
+            queryString.split("&").forEach(function (pair) {
+                const keyValue = pair.split("=");
+                const key = decodeURIComponent(keyValue[0]);
+                const value = decodeURIComponent(keyValue[1]);
+                params[key] = value;
+            });
+
+            return params;
+            }
+           document.addEventListener('DOMContentLoaded', function() {
+            const queryParams = getQueryStringParameters();
+            console.log("queryParamsqueryParamsqueryParams",queryParams)
+              // Replace with your actual API endpoint
+              const apiUrl = 'http://localhost:8080/api/inventory/'+queryParams.id;;
+
+              // Make the API call
+              $.ajax({
+                url: apiUrl,
+                type: 'DELETE',
+                contentType: 'application/json',
+                success: function(response) {
+                  console.log('API Response:', response);
+                    $("#msg").html("<h2>Record Deleted<h2>");
+                },
+                error: function(error) {
+                  console.error('Error:', error);
+                  alert('Error submitting data. Please try again.');
+                }
+              });
+            });
+
+          </script>
+   </body>
+</html>

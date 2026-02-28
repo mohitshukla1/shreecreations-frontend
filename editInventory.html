@@ -1,0 +1,448 @@
+<!doctype html>
+<!--
+   * Bootstrap Simple Admin Template
+   * Version: 2.1
+   * Author: Alexis Luna
+   * Website: https://github.com/alexis-luna/bootstrap-simple-admin-template
+   -->
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Shree Creations</title>
+      <link href="assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+      <link href="assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+      <link href="assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+      <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="assets/css/master.css" rel="stylesheet">
+      <link href="assets/vendor/flagiconcss/css/flag-icon.min.css" rel="stylesheet">
+
+   </head>
+   <body>
+      <div class="wrapper">
+         <nav id="sidebar">
+            <div class="sidebar-header">
+               <span style="color:gold">Shree Creations</span>
+               <!-- <img src="assets/img/logo.jpg" height="20px" width="50px" alt="bootraper logo" class="app-logo"> -->
+            </div>
+            <ul class="list-unstyled components text-secondary">
+               <li>
+                  <a href="#uielementsmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Sale</a>
+                  <ul class="collapse list-unstyled" id="uielementsmenu">
+
+                     <li>
+                        <a href="sale.html">Sale Orders</a>
+                     </li>
+                     <li>
+                        <a href="normalSale.html">Sale Orders (Normal)</a>
+                     </li>
+                     <li>
+                        <a href="allSales.html">All Sales</a>
+                     </li>
+
+                  </ul>
+               </li>
+               <li>
+                  <a href="#uielementsinventory" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Inventory</a>
+                  <ul class="collapse list-unstyled" id="uielementsinventory">
+                      <li>
+                          <a href="inventory.html">Inventory</a>
+                      </li>
+                      <li>
+                          <a href="allInventory.html">All Inventory</a>
+                      </li>
+
+
+                  </ul>
+              </li>
+              <li>
+               <a href="#uielementsReport" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Reports</a>
+               <ul class="collapse list-unstyled" id="uielementsReport">
+                  <li>
+                     <a href="saleReport.html">Sale Report</a>
+                  </li>
+                  <li>
+                     <a href="customer.html">Customers</a>
+                 </li>
+               </ul>
+            </li>
+            </ul>
+         </nav>
+         <div id="body" class="active">
+            <!-- navbar navigation component -->
+            <nav class="navbar navbar-expand-lg navbar-white bg-white">
+               <button type="button" id="sidebarCollapse" class="btn btn-light">
+               <i class="fas fa-bars"></i><span></span>
+               </button>
+               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="nav navbar-nav ms-auto">
+                     <li class="nav-item dropdown">
+                        <div class="nav-dropdown">
+                           <a href="#" id="nav1" class="nav-item nav-link dropdown-toggle text-secondary" data-bs-toggle="dropdown" aria-expanded="false">
+                           <i class="fas fa-link"></i> <span>Quick Links</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i>
+                           </a>
+                           <div class="dropdown-menu dropdown-menu-end nav-link-menu" aria-labelledby="nav1">
+                              <ul class="nav-list">
+                                 <li><a href="" class="dropdown-item"><i class="fas fa-list"></i> Access Logs</a></li>
+                                 <div class="dropdown-divider"></div>
+                                 <li><a href="" class="dropdown-item"><i class="fas fa-database"></i> Back ups</a></li>
+                                 <div class="dropdown-divider"></div>
+                                 <li><a href="" class="dropdown-item"><i class="fas fa-cloud-download-alt"></i> Updates</a></li>
+                                 <div class="dropdown-divider"></div>
+                                 <li><a href="" class="dropdown-item"><i class="fas fa-user-shield"></i> Roles</a></li>
+                              </ul>
+                           </div>
+                        </div>
+                     </li>
+                     <li class="nav-item dropdown">
+                        <div class="nav-dropdown">
+                           <a href="#" id="nav2" class="nav-item nav-link dropdown-toggle text-secondary" data-bs-toggle="dropdown" aria-expanded="false">
+                           <i class="fas fa-user"></i> <span>John Doe</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i>
+                           </a>
+                           <div class="dropdown-menu dropdown-menu-end nav-link-menu">
+                              <ul class="nav-list">
+                                 <li><a href="" class="dropdown-item"><i class="fas fa-address-card"></i> Profile</a></li>
+                                 <li><a href="" class="dropdown-item"><i class="fas fa-envelope"></i> Messages</a></li>
+                                 <li><a href="" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                 <div class="dropdown-divider"></div>
+                                 <li><a href="" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                              </ul>
+                           </div>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+            </nav>
+            <div class="pg-title">
+               <h2 class="page-title">Inventory</h2>
+            </div>
+            <!-- end of navbar navigation -->
+            <div class="content">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-lg-12">
+                        <div class="card">
+                            <div class="container mt-5">
+
+                                <form id="productForm" class="row g-3">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                          <label for="name">Name:</label>
+                                          <input type="text" class="form-control" id="name" required>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          <label for="itmeCode">Item Code:</label>
+                                          <input type="text" class="form-control" id="itmeCode" required>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="brand">Brand:</label>
+                                            <select class="form-control" id="brand" required>
+                                                <option value="N/A" selected>N/A</option>
+                                                <option value="KS4U">KS4U (Krishna Creations)</option>
+                                                <option value="KUKU">KUKU (Hansraj Mulchnad & Sons)</option>
+                                                <option value="Heritage Creation"> Heritage Creation (Haresh Collection)</option>
+
+                                                <!-- Add more brands as needed -->
+                                              </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="manufacturer">Manufacturer:</label>
+                                            <select class="form-control" id="manufacturer" required>
+
+                                            <!-- Add more manufacturers as needed -->
+                                            </select>
+                                        </div>
+                                      </div>
+
+
+                                      <div class="col-md-6">
+                                       <div class="form-group">
+                                           <label for="size">Size</label>
+                                           <select class="form-control" id="size">
+
+                                           </select>
+                                       </div>
+                                     </div>
+
+
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="gst">GST (%):</label>
+                                            <select class="form-control" id="gst" onchange="updateSellingPrice()">
+                                             <option value="0">0%</option>
+                                             <option value="5">5%</option>
+                                            <option value="10">10%</option>
+                                            <option value="12">12%</option>
+                                            <option value="15">15%</option>
+                                            <option value="25">25%</option>
+                                            <option value="30">30%</option>
+                                            <option value="50">50%</option>
+                                            </select>
+                                        </div>
+                                      </div>
+
+
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="costPrice">Cost Price:</label>
+                                            <input type="number" class="form-control" id="costPrice" onchange="updateSellingPrice()">
+                                        </div>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="margin">Margin (%):</label>
+                                            <input type="number" class="form-control" id="margin" onchange="updateSellingPrice()">
+
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="sellingPrice">Selling Price:</label>
+                                            <input type="number" class="form-control" id="sellingPrice">
+                                        </div>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="stock">Stock:</label>
+                                            <input type="number" class="form-control" id="stock" required>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+
+                                      </div>
+
+
+
+                                  </form>
+                              </div>
+
+
+                           <!-- Create Order Button -->
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+      <script src="assets/vendor/jquery/jquery.min.js"></script>
+      <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="assets/vendor/datatables/datatables.min.js"></script>
+      <script src="assets/js/initiate-datatables.js"></script>
+      <script src="assets/js/script.js"></script>
+      <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+         <script>
+            function getQueryStringParameters() {
+            const queryString = window.location.search.substring(1);
+            const params = {};
+
+            queryString.split("&").forEach(function (pair) {
+                const keyValue = pair.split("=");
+                const key = decodeURIComponent(keyValue[0]);
+                const value = decodeURIComponent(keyValue[1]);
+                params[key] = value;
+            });
+
+            return params;
+            }
+
+            // Example usage
+
+           document.addEventListener('DOMContentLoaded', function() {
+               getInventoryDetails();
+            });
+           function getInventoryDetails() {
+            const queryParams = getQueryStringParameters();
+            const apiUrl = 'http://localhost:8080/api/inventory/editInvenotry/'+queryParams.id;
+            const method = 'GET';
+
+            // Make the API call
+            fetch(apiUrl, {
+            method: method,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+
+            })
+            .then(response => response.json())
+            .then(data => {
+            // Handle the API response here
+            console.log('API Response:', data);
+
+
+              $('#name').val(data.name);
+              $('#brand').val(data.brand);
+
+              $('#sellingPrice').val(data.sellingPrice);
+
+              $('#costPrice').val(data.costPrice);
+              $('#stock').val(data.stock);
+              $('#margin').val(data.margin);
+              $('#gst').val(data.gst);
+              $('#itmeCode').val(data.itmeCode);
+              $('#size').val(data.size);
+
+
+                const sizeElementData = [
+                    { value: "Free Size", label: 'Free Size' },
+                    { value: "S", label: 'S' },
+                    { value: "M", label: 'M' },
+                    { value: "L", label: 'L' },
+                    { value: "XL", label: 'XL' },
+                    { value: "XXL", label: 'XXL' }
+                ];
+
+                const sizeElement = $('#size');
+
+                // Clear existing options
+                sizeElement.empty();
+
+                sizeElementData.forEach(option => {
+                    const optionElement = $('<option>', {
+                        value: option.value,
+                        text: option.label
+                    });
+
+                    // Check if the option should be selected
+                    if (option.value == data.size) {
+                        optionElement.attr('selected', true);
+                    }
+
+                    sizeElement.append(optionElement);
+                });
+
+
+
+                const manufacturerElementData = [
+                    { value: "N/A", label: 'N/A' },
+                    { value: "Krishna Creations", label: 'Krishna Creations' },
+                    { value: "JANVI NX", label: 'JANVI NX' },
+
+                    { value: "RKT", label: 'RKT (Radhe Krishna)' },
+                    { value: "Hansraj Mulchnad & Sons", label: 'Hansraj Mulchnad & Sons' },
+                    { value: "Haresh Collection", label: 'Haresh Collection' },
+                    { value: "Guru Kripa Textile Western", label: 'Guru Kripa Textile Western' },
+                    { value: "Guru Kripa Textile Bottom", label: 'Guru Kripa Textile Bottom' },
+                    { value: "Avanta", label: 'Avanta' },
+                    { value: "Ikkat", label: 'Ikkat' },
+                    { value: "Vinayak", label: 'Vinayak' },
+                    { value: "Aanchal Creation", label: 'Aanchal Creation' },
+                    { value: "Gayaso (Bapu Bazar)", label: 'Gayaso (Bapu Bazar)' },
+                    { value: "Alok Suit", label: 'Alok Suit' },
+
+                ];
+
+                const manufacturerElement = $('#manufacturer');
+
+                // Clear existing options
+                manufacturerElement.empty();
+
+                manufacturerElementData.forEach(option => {
+                    const optionElement = $('<option>', {
+                        value: option.value,
+                        text: option.label
+                    });
+
+                    // Check if the option should be selected
+                    if (option.value == data.manufacturer) {
+                        optionElement.attr('selected', true);
+                    }
+
+                    manufacturerElement.append(optionElement);
+                });
+
+
+
+            })
+            .catch(error => {
+            console.error('Error:', error);
+            alert('Error creating order. Please try again.');
+            });
+           }
+
+           function formatDate(inputDate) {
+               const options = { year: 'numeric', month: 'short', day: '2-digit' };
+               const formattedDate = new Date(inputDate).toLocaleDateString('en-In', options);
+               return formattedDate;
+           }
+
+
+            function updateSellingPrice() {
+                const costPrice = parseFloat($('#costPrice').val()) || 0;
+                const gst = parseFloat($('#gst').val()) || 0;
+                const margin = parseFloat($('#margin').val()) || 0;
+
+                const sellingPrice = costPrice  + (costPrice * margin / 100);
+                let afterGST = sellingPrice +(sellingPrice * gst / 100);
+                  afterGST = Math.round(afterGST);
+                  $('#sellingPrice').val(afterGST);
+                alert("Price Updated !")
+            }
+
+            function submitForm() {
+              const name = $('#name').val();
+              const brand = $('#brand').val();
+              const manufacturer = $('#manufacturer').val();
+              const upc = $('#upc').val();
+              const sellingPrice = parseFloat($('#sellingPrice').val());
+              const costPrice = parseFloat($('#costPrice').val());
+              const stock = parseInt($('#stock').val());
+              const margin = parseInt($('#margin').val());
+              const gst = parseInt($('#gst').val());
+              const itmeCode = $('#itmeCode').val();
+              const size = $('#size').val();
+
+              const productData = {
+                name,
+                brand,
+                manufacturer,
+                upc,
+                sellingPrice,
+                costPrice,
+                stock,
+                gst,
+                margin,
+                itmeCode,
+                size
+              };
+              const queryParams = getQueryStringParameters();
+              // Replace with your actual API endpoint
+              const apiUrl = 'http://localhost:8080/api/inventory/'+queryParams.id;;
+
+              // Make the API call
+              $.ajax({
+                url: apiUrl,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(productData),
+                success: function(response) {
+                  console.log('API Response:', response);
+                  alert('Data submitted successfully!');
+                },
+                error: function(error) {
+                  console.error('Error:', error);
+                  alert('Error submitting data. Please try again.');
+                }
+              });
+            }
+          </script>
+   </body>
+</html>

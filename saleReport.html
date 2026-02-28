@@ -1,0 +1,320 @@
+<!doctype html>
+<!--
+* Bootstrap Simple Admin Template
+* Version: 2.1
+* Author: Alexis Luna
+* Website: https://github.com/alexis-luna/bootstrap-simple-admin-template
+-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shree Creations</title>
+    <link href="assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/master.css" rel="stylesheet">
+    <link href="assets/vendor/flagiconcss/css/flag-icon.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <span style="color:gold">Shree Creations</span>
+                <!-- <img src="assets/img/logo.jpg" height="20px" width="50px" alt="bootraper logo" class="app-logo"> -->
+            </div>
+            <ul class="list-unstyled components text-secondary">
+                <li>
+                    <a href="#uielementsmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Sale</a>
+                    <ul class="collapse list-unstyled" id="uielementsmenu">
+
+                       <li>
+                          <a href="sale.html">Sale Orders</a>
+                       </li>
+                       <li>
+                        <a href="normalSale.html">Sale Orders (Normal)</a>
+                     </li>
+                     <li>
+                        <a href="allSales.html">All Sales</a>
+                     </li>
+
+                    </ul>
+                 </li>
+                 <li>
+                    <a href="#uielementsinventory" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Inventory</a>
+                    <ul class="collapse list-unstyled" id="uielementsinventory">
+                        <li>
+                            <a href="inventory.html">Inventory</a>
+                        </li>
+                        <li>
+                            <a href="allInventory.html">All Inventory</a>
+                        </li>
+
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#uielementsReport" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Reports</a>
+                    <ul class="collapse list-unstyled" id="uielementsReport">
+                       <li>
+                          <a href="saleReport.html">Sale Report</a>
+                       </li>
+                       <li>
+                        <a href="customer.html">Customers</a>
+                    </li>
+                    </ul>
+                 </li>
+            </ul>
+        </nav>
+        <div id="body" class="active">
+
+            <div class="pg-title">
+
+                <h2 class="page-title">Sale Report</h2>
+                Total: <span id="totalSale"></span>
+            </div>
+            <!-- end of navbar navigation -->
+            <div class="content">
+
+
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card">
+
+                                <div class="card-body">
+
+                                        <!-- <div class="row g-2">
+
+                                            <div class="col-lg-2">
+                                                <label for="startDate">Start Date:</label>
+                                                <input type="date" id="startDate" name="startDate"  class="form-control">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label for="startDate">End Date:</label>
+                                                <input type="date" id="endDate" name="endDate"  class="form-control">
+                                            </div>
+
+
+                                        </div> -->
+
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Month (year)</th>
+                                                    <th>Total Orders</th>
+
+                                                    <th>saleAmount</th>
+                                                    <th>profit</th>
+                                                    <th>profitPercentage %</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="allordersBody">
+
+                                            </tbody>
+                                        </table>
+                                        <div id="msg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+            </div>
+        </div>
+    </div>
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/datatables/datatables.min.js"></script>
+    <script src="assets/js/initiate-datatables.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+
+
+            const startDateInput = document.getElementById("startDate");
+            const endDateInput = document.getElementById("endDate");
+
+
+            // let dates = [
+            //     {
+            //         "month":"Dec 2024",
+            //         endDate : "2024-12-31",
+            //         startDate:"2024-12-01"
+            //     },
+            //     {
+            //         "month":"Nov 2024",
+            //         endDate : "2024-11-30",
+            //         startDate:"2024-11-01"
+            //     },
+            //     {
+            //         "month":"Oct 2024",
+            //         endDate : "2024-10-31",
+            //         startDate:"2024-10-01"
+            //     },
+            //     {
+            //         "month":"Sep 2024",
+            //         endDate : "2024-09-30",
+            //         startDate:"2024-09-01"
+            //     },
+            //     {
+            //         "month":"Aug 2024",
+            //         endDate : "2024-08-31",
+            //         startDate:"2024-08-01"
+            //     },
+            //     {
+            //         "month":"July 2024",
+            //         endDate : "2024-07-31",
+            //         startDate:"2024-07-01"
+            //     },
+            //     {
+            //         "month":"Jun 2024",
+            //         endDate : "2024-07-30",
+            //         startDate:"2024-07-01"
+            //     }
+            // ]
+            // for(let x= 0; x<dates.length; x++){
+            //     getSaleReport(dates[x].month, dates[x].startDate, dates[x].endDate);
+            // }
+
+            getSaleReport();
+            // startDateInput.addEventListener("change", fetchStats);
+            // endDateInput.addEventListener("change", fetchStats);
+
+         });
+
+        function getSaleReport() {
+
+            // const startDate = startDateInput.value;
+            // const endDate = endDateInput.value;
+
+            const apiUrl = 'http://localhost:8080/api/orders/saleReport';
+            const method = 'POST';
+            const productData = {
+                startDate:""
+              };
+
+            $.ajax({
+                url: apiUrl,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(productData),
+                success: function(data) {
+                    console.log('API Response:', data);
+                    data = data.data;
+                    const tableBody = document.getElementById('allordersBody');
+                    for(let x=0; x<data.length; x++){
+                        const newRow = document.createElement('tr');
+                        newRow.innerHTML = `
+                            <td>${data[x].month}</td>
+                            <td>${data[x].totalOrders}</td>
+                            <td>${data[x].saleAmount}</td>
+                            <td>${data[x].profit}</td>
+                            <td>${data[x].profitPercentage } %</td>
+                            `;
+
+                            tableBody.appendChild(newRow);
+                    }
+
+
+
+
+
+
+                },
+                error: function(error) {
+                  console.error('Error:', error);
+                }
+              });
+
+
+
+        }
+
+
+        function formatDate(inputDate) {
+            const options = { year: 'numeric', month: 'short', day: '2-digit' };
+            const formattedDate = new Date(inputDate).toLocaleDateString('en-In', options);
+            return formattedDate;
+        }
+
+        function searchOrder() {
+            const msg = document.getElementById('msg');
+            msg.innerHTML = "";
+            let invoiceId = $('#invoiceId').val();
+            let phoneNumber = $('#phoneNumber').val();
+
+            let name = $('#name').val();
+
+            const apiUrl = 'http://localhost:8080/api/orders/searchOrder';
+            const method = 'POST';
+            const productData = {
+                invoiceId,phoneNumber,name
+              };
+              const tableBody = document.getElementById('allordersBody');
+            $.ajax({
+                url: apiUrl,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(productData),
+                success: function(data) {
+                    if(data.length > 0){
+                        console.log("data",data)
+
+                        tableBody.innerHTML = "";
+
+
+                        for(let x=0; x<data.length; x++){
+
+                            const newIndex = tableBody.children.length + 1;
+
+                            const newRow = document.createElement('tr');
+                            newRow.innerHTML = `
+
+                            <td>${x+1}</td>
+             <td>${data[x].customerName}</td>
+             <td>${data[x].saleOrderNumber}</td>
+             <td>${data[x].phoneNumber}</td>
+             <td>${data[x].total}</td>
+             <td>${data[x].paymentMode}</td>
+
+             <td>${formatDate(data[x].createdAt)}</td>
+             <td>${data[x].invoiceNumber}</td>
+             <td style="
+    width: 19%;
+">${data[x].notes}</td>
+             <td><a target="blank" href="returnOrder.html?id=${data[x]._id}" class="btn btn-info me-1">Return</a></td>
+
+             <td><a target="blank" href="invoice.html?id=${data[x]._id}" class="btn btn-success me-1"><i class="fa fa-download"></i></a></td>
+            `;
+
+                            tableBody.appendChild(newRow);
+                            }
+                    }else{
+
+                        tableBody.innerHTML = "";
+                        msg.innerHTML = "<tr><td style='Width:100%'>No record Found<td></tr>"
+                    }
+
+
+                },
+                error: function(error) {
+                  console.error('Error:', error);
+                  alert('Error submitting data. Please try again.');
+                }
+              });
+        }
+
+    </script>
+</body>
+
+</html>

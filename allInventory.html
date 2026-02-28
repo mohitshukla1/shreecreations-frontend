@@ -1,0 +1,297 @@
+<!doctype html>
+<!--
+* Bootstrap Simple Admin Template
+* Version: 2.1
+* Author: Alexis Luna
+* Website: https://github.com/alexis-luna/bootstrap-simple-admin-template
+-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shree Creations</title>
+    <link href="assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/master.css" rel="stylesheet">
+    <link href="assets/vendor/flagiconcss/css/flag-icon.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <span style="color:gold">Shree Creations</span>
+                <!-- <img src="assets/img/logo.jpg" height="20px" width="50px" alt="bootraper logo" class="app-logo"> -->
+            </div>
+            <ul class="list-unstyled components text-secondary">
+                <li>
+                    <a href="#uielementsmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Sale</a>
+                    <ul class="collapse list-unstyled" id="uielementsmenu">
+
+                       <li>
+                          <a href="sale.html">Sale Orders</a>
+                       </li>
+                            <li>
+                        <a href="normalSale.html">Sale Orders (Normal)</a>
+                        </li>
+                        <li>
+                            <a href="allSales.html">All Sales</a>
+                        </li>
+
+                    </ul>
+                 </li>
+                 <li>
+                    <a href="#uielementsinventory" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Inventory</a>
+                    <ul class="collapse list-unstyled" id="uielementsinventory">
+                        <li>
+                            <a href="inventory.html">Inventory</a>
+                        </li>
+                        <li>
+                            <a href="allInventory.html">All Inventory</a>
+                        </li>
+
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#uielementsReport" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Reports</a>
+                    <ul class="collapse list-unstyled" id="uielementsReport">
+                       <li>
+                          <a href="saleReport.html">Sale Report</a>
+                       </li>
+                       <li>
+                        <a href="customer.html">Customers</a>
+                    </li>
+                    </ul>
+                 </li>
+            </ul>
+        </nav>
+        <div id="body" class="active">
+
+            <div class="pg-title">
+
+                    <h2 class="page-title">All Inventory</h2>
+
+
+
+
+
+            </div>
+            <!-- end of navbar navigation -->
+            <div class="content">
+
+
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card">
+
+                                <div class="card-body">
+
+                                        <div class="row g-2">
+                                            <div class="col">
+                                                <label for="itemCode" class="form-label sr-only"></label>
+                                                <input  id= "itemCode" name="itemCode" type="text" placeholder="Item Code" class="form-control" >
+                                            </div>
+
+                                            <div class="col">
+                                                <button  class="btn btn-primary" onclick="searchItemCode()">search</button>
+                                            </div>
+
+
+                                        </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Item Code</th>
+                                                    <th>Brand</th>
+                                                    <th>Size</th>
+                                                    <th>Cost Price</th>
+                                                    <th>Gst</th>
+                                                    <th>Margin</th>
+                                                    <th>selling Price</th>
+                                                    <th>Manufacturer</th>
+                                                    <th>stock</th>
+                                                    <th>Action</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="allordersBody">
+
+                                            </tbody>
+                                        </table>
+
+                                        <div id="msg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+            </div>
+        </div>
+    </div>
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/datatables/datatables.min.js"></script>
+    <script src="assets/js/initiate-datatables.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+            const msg = document.getElementById('msg');
+            msg.innerHTML = "";
+            getAllOrders();
+         });
+        function getAllOrders() {
+         const apiUrl = 'http://localhost:8080/api/inventory';
+         const method = 'GET';
+
+         // Make the API call
+         fetch(apiUrl, {
+         method: method,
+         headers: {
+           'Content-Type': 'application/json',
+         },
+
+         })
+         .then(response => response.json())
+         .then(data => {
+         // Handle the API response here
+         console.log('API Response:', data);
+         const tableBody = document.getElementById('allordersBody');
+         for(let x=0; x<data.length; x++){
+
+           const newIndex = tableBody.children.length + 1;
+
+           const newRow = document.createElement('tr');
+           newRow.innerHTML = `
+           <td>${x+1}</td>
+             <td>${data[x].name}</td>
+             <td>${data[x].itmeCode}</td>
+             <td>${data[x].brand}</td>
+             <td>${data[x].size}</td>
+
+             <td>${data[x].costPrice}</td>
+             <td>${data[x].gst}</td>
+             <td>${data[x].margin}</td>
+             <td>${data[x].sellingPrice}</td>
+             <td>${data[x].manufacturer}</td>
+
+             <td>${data[x].stock}</td>
+             <td><a type="button" class="btn btn-primary" target="_blank" href="editInventory.html?id=${data[x].id}" >Edit</a>
+                <a type="button" href="deleteInventory.html?id=${data[x].id}" class="btn btn-danger">Remove</a></td>
+             `;
+
+           tableBody.appendChild(newRow);
+         }
+
+
+
+
+         })
+         .catch(error => {
+         console.error('Error:', error);
+         alert('Error creating order. Please try again.');
+         });
+        }
+
+        function removeItem(id) {
+            const apiUrl = 'http://localhost:8080/api/inventory/'+id;;
+
+              // Make the API call
+              $.ajax({
+                url: apiUrl,
+                type: 'DELETE',
+                contentType: 'application/json',
+
+                success: function(response) {
+                  console.log('API Response:', response);
+                  alert(' deleted successfully!');
+                },
+                error: function(error) {
+                  console.error('Error:', error);
+                  alert('Error deleting data. Please try again.');
+                }
+              });
+        }
+
+        function formatDate(inputDate) {
+            const options = { year: 'numeric', month: 'short', day: '2-digit' };
+            const formattedDate = new Date(inputDate).toLocaleDateString('en-In', options);
+            return formattedDate;
+        }
+
+
+        function searchItemCode(id) {
+            const msg = document.getElementById('msg');
+            msg.innerHTML = "";
+            let itemCode = $('#itemCode').val();
+
+            const apiUrl = 'http://localhost:8080/api/inventory/searchItemCode';
+            const method = 'POST';
+            const productData = {
+                itemCode
+              };
+              const tableBody = document.getElementById('allordersBody');
+            $.ajax({
+                url: apiUrl,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(productData),
+                success: function(data) {
+                    if(data.id){
+
+                        tableBody.innerHTML = "";
+
+
+                        const newIndex = tableBody.children.length + 1;
+
+                        const newRow = document.createElement('tr');
+                        newRow.innerHTML = `
+                        <td>${1}</td>
+                            <td>${data.name}</td>
+                            <td>${data.itmeCode}</td>
+                            <td>${data.brand}</td>
+                            <td>${data.size}</td>
+
+                            <td>${data.costPrice}</td>
+                            <td>${data.gst}</td>
+                            <td>${data.margin}</td>
+                            <td>${data.sellingPrice}</td>
+                            <td>${data.manufacturer}</td>
+
+                            <td>${data.stock}</td>
+                            <td><a type="button" class="btn btn-primary" target="_blank" href="editInventory.html?id=${data.id}" >Edit</a>
+                                <a type="button" target="_blank"  href="deleteInventory.html?id=${data.id}" class="btn btn-danger">Remove</a></td>
+                            `;
+
+                            tableBody.appendChild(newRow);
+                    }else{
+
+                        tableBody.innerHTML = "";
+                        msg.innerHTML = "<tr><td style='Width:100%'>No record Found<td></tr>"
+                    }
+
+
+                },
+                error: function(error) {
+                  console.error('Error:', error);
+                  alert('Error submitting data. Please try again.');
+                }
+              });
+        }
+    </script>
+</body>
+
+</html>

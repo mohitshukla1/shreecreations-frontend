@@ -1,0 +1,321 @@
+<!doctype html>
+<!-- 
+* Bootstrap Simple Admin Template
+* Version: 2.1
+* Author: Alexis Luna
+* Website: https://github.com/alexis-luna/bootstrap-simple-admin-template
+-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shree Creations</title>
+    <link href="assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/master.css" rel="stylesheet">
+    <link href="assets/vendor/flagiconcss/css/flag-icon.min.css" rel="stylesheet">
+    <style>
+       #body>.content {
+    position: relative;
+    padding: 1.5rem;
+}
+        .font-12, td{
+            font-size: 12px;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printThis, #printThis * {
+                visibility: visible;
+            }
+        }
+        .subtotal tr{
+            border: none;
+
+        }
+        .subtotal tr td, .subtotal tr th, .subtotal tr th{
+            border: none;
+
+        }
+        .card-body{
+            font-size: 10px !important;
+             padding: 0px 8px;
+        }
+        .table>:not(caption)>*>* {
+            padding: 2px 0px;
+            background-color: var(--bs-table-bg);
+            border-bottom-width: var(--bs-border-width);
+            box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+
+        }
+        .img-container {
+    display: flex;
+    justify-content: space-between; /* evenly distribute items along the main axis */
+    align-items: center; /* vertically center */
+    height: 300px; /* or any desired height */
+   
+    padding: 0 20px; /* optional padding for spacing */
+  }
+  .img-container img {
+    max-width: 100%;
+    max-height: 100%;
+  
+  }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        
+        <div id="body" class="active">
+            <!-- navbar navigation component -->
+            <a href="javascript:window.print()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
+            <a href="#" class="btn btn-primary w-md">Send</a>
+
+           
+            
+            <!-- end of navbar navigation -->
+            <div class="content">
+               
+                <div class="col-lg-12">
+                  
+                    <div class="card" id="printThis">
+                       
+                            <div style="font-size: 14px; text-align: center;"><b>Sale Invoice</b></div>
+                                     
+                                           <div class="card-body">
+                                               <div class="invoice-title">
+                                                   <p class="float-end font-size-15" style="font-size: 12px;">Invoice No. <b><span id="invoiceNumber"></span></b> <br/>Invoice Date: <b><span id="invoiceDate"></span></b> <br/>Order No: <b><span id="saleOrderNumber"></span></b></p>
+                                                   <div>
+                                                      <h6 class="mb-1 text-muted"><b>Shree Creations</b></h6>
+                                                   </div>
+                                                   <div class="text-muted">
+                                                       <p class="mb-1" style="font-size: 12px;">645/034 sarla complex 60 feet road, <br/>Jankipuram vistaar, Lucknow 226021
+                                                        
+                                                        <br/>Contact: 9140263969, 8960931924
+                                                    </p>
+                                                       <!-- <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> xyz@987.com</p> -->
+                                                      
+                                                   </div>
+                                               </div>
+                           
+                                               <hr class="my-2">
+                           
+                                               <div class="row">
+                                                   <div class="col-sm-6">
+                                                       <div class="text-muted">
+                                                       
+                                                            <h6 class="mb-1 text-muted">Bill To:</h6>
+                                                       
+                                                           <p style="font-size: 12px;"><b><span id="customerName"></span></b> <br/>Contact: <b><span id="phoneNumber"></span></b></p>
+                                                       </div>
+                                                   </div>
+                                                  
+                                               </div>
+                                               <!-- end row -->
+                                               
+                                               <div>
+                                                   <p style="font-size: 14px;">Order Summary</p>
+                           
+                                                   <div class="table-responsive">
+                                                       <table class="table align-middle table-nowrap table-centered mb-0">
+                                                           <thead>
+                                                            <tr>
+                                                                <th style="width: 70px;">No.</th>
+                                                                <th>Item</th>
+                                                                <th>Price</th>
+                                                                
+                                                                <th>Quantity</th>
+                                                                <th>Discount(%)</th>
+                                                                <th class="text-end" style="width: 120px;">Total</th>
+                                                            </tr>
+                                                               
+                                                           </thead><!-- end thead -->
+                                                           <tbody id="allordersBody">
+                                                               
+                                                              
+                                                           </tbody><!-- end tbody -->
+                                                       </table><!-- end table -->
+                                                       <table class="table align-middle table-nowrap table-centered mb-0">
+                                                        <thead class="subtotal">
+                                                            <tr>
+                                                                <th style="width: 70px;"></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th class="text-end" style="width: 120px;"></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="subtotal" id="allTotal">
+                                                             <!-- end tr -->
+                                                              
+                                                               <!-- end tr -->
+                                                            <tr>
+                                                                <th scope="row" colspan="5" class="text-end font-12" >Sub Total</th>
+                                                                <td class="text-end"><span id="subTotal"></span></td>
+                                                            </tr>
+                                                            <!-- end tr -->
+                                                            <!-- <tr id="discount">
+                                                                <th scope="row" colspan="4" class="border-0 text-end font-12">
+                                                                    Discount (<span id="discountPersentage"></span>) </th>
+                                                                <td class="border-0 text-end"><span id="discountedTotal"></span></td>
+                                                            </tr> -->
+                                                           
+                                                           
+                                                            <!-- end tr -->
+                                                            <tr>
+                                                                <th scope="row" colspan="5" class="border-0 text-end font-12">Total</th>
+                                                                <td class="border-0 text-end"><p class="m-0 fw-semibold" style="font-size: 14px;"><span id="total"></span></p></td>
+                                                            </tr>
+
+                                                           
+                                                            <!-- end tr -->
+                                                        </tbody>
+                                                       </table>
+                                                   </div><!-- end table responsive -->
+                                                   <div class="img-container">
+                                                    <img height="150px";
+                                                    width="200px"; src="C:\Users\MOHIT SHUKLA\OneDrive\Desktop\logo.jpg" alt="Left Image">
+                                                   
+                                                  </div>
+                                               </div>
+                                           </div>
+                                      
+                                 
+                           </div>
+
+
+
+
+                   
+                </div>
+                    
+                  
+               
+            </div>
+        </div>
+    </div>
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/datatables/datatables.min.js"></script>
+    <script src="assets/js/initiate-datatables.js"></script>
+    <script src="assets/js/script.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+    <script>
+        function getQueryStringParameters() {
+                const queryString = window.location.search.substring(1);
+                const params = {};
+
+                queryString.split('&').forEach(param => {
+                    const [key, value] = param.split('=');
+                    params[key] = decodeURIComponent(value.replace(/\+/g, ' '));
+                });
+
+                return params;
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+          
+           // Example usage:
+            const queryParams = getQueryStringParameters();
+            console.log(queryParams);
+            getAllOrders( queryParams.id);
+        });
+       function getAllOrders(id) {
+        const apiUrl = 'http://localhost:8080/api/orders/'+id;
+        const method = 'GET';
+        
+        // Make the API call
+        fetch(apiUrl, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      
+        })
+        .then(response => response.json())
+        .then(data => {
+        // Handle the API response here
+        console.log('API Response:', data);
+        // document.getElementById('discountPersentage').textContent = data.discount+"%";
+        // document.getElementById('discountedTotal').textContent = data.discountedTotal;
+
+        if( data.discount == 0){
+            document.getElementById('discount').innerHTML = "";
+        }
+
+        document.getElementById('subTotal').textContent= data.subTotal;
+        document.getElementById('total').textContent= data.total;
+
+        document.getElementById('customerName').textContent= data.customerName;
+        document.getElementById('phoneNumber').textContent= "+91-"+data.phoneNumber;
+        document.getElementById('saleOrderNumber').textContent= data.saleOrderNumber;
+        document.getElementById('invoiceNumber').textContent= data.invoiceNumber;
+        document.getElementById('invoiceDate').textContent= data.invoiceDate;
+        // document.getElementById('advance').textContent= data.advance;
+        
+        let returnableBalance = data.total - data.advance;
+        // document.getElementById('returnableBalance').textContent= returnableBalance;
+         console.log("data.invoiceDate",data.invoiceDate)
+        const tableBody = document.getElementById('allordersBody');
+        for(let x=0; x<data.items.length; x++){
+            let itmes = data.items
+          const newIndex = tableBody.children.length + 1;
+        
+          const newRow = document.createElement('tr');
+          newRow.innerHTML = `
+          <td scope="row">${x+1}</td>
+          <td><p class="text-muted mb-0">${itmes[x].itemName} ${itmes[x].itmeCode ? itmes[x].itmeCode :""} ${itmes[x].size ? itmes[x].size : ""} </p></td>
+            <td>${itmes[x].rate}</td>
+            <td>${itmes[x].quantity}</td>
+            <td>${itmes[x].discount >0 ? itmes[x].discount :""}</td>
+            <td class="text-end">${itmes[x].price}</td>
+          `;
+        
+          tableBody.appendChild(newRow);
+        }
+        if(data.oldOrderId){
+            const allTotal = document.getElementById('allTotal');
+            const newTrRow = document.createElement('tr');
+            newTrRow.innerHTML = `
+                
+                    <th scope="row" colspan="5" class="border-0 text-end font-12">Advance</th>
+                    <td class="border-0 text-end"><p class="m-0 fw-semibold">(-)<span id="advance">${data.advance}</span></p></td>
+               
+                
+            `;
+
+            const newTrRow1 = document.createElement('tr');
+            newTrRow1.innerHTML = `
+                
+               
+                <th scope="row" colspan="5" class="border-0 text-end font-12">Returnable Balance</th>
+                <td class="border-0 text-end"><p class="m-0 fw-semibold"><span id="returnableBalance">${returnableBalance}</span></p></td>
+           
+        `;
+             allTotal.appendChild(newTrRow);
+             allTotal.appendChild(newTrRow1);
+        }
+       
+        
+        
+        })
+        .catch(error => {
+        console.error('Error:', error);
+        alert('Error creating order. Please try again.');
+        });
+       }
+        
+   </script>
+</body>
+
+</html>

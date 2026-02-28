@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Form</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+    th {
+        width: 20%;
+    }
+</style>
+<style>
+    .tbl-total td, .table th {
+        padding: 3px 10px 0px 0px;
+    vertical-align: middle;
+    border-top: none;
+}
+.txt-right{
+    text-align: right;
+}
+  </style>
+<body>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Sales Form</h2>
+
+    <form id="salesForm">
+      <!-- Customer Information -->
+      <div class="form-row">
+        <div class="col">
+            <label for="name" class="form-label sr-only" for="customerName">Customer Name</label>
+
+            <input type="text" class="form-control" id="customerName" placeholder="Enter customer name" required>
+        </div>
+        <div class="col">
+            <label for="username" class="form-label sr-only" for="phoneNumber">Phone Number:</label>
+            <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+        </div>
+        <div class="col">
+            <label for="username" class="form-label sr-only" for="saleOrderNumber">Sale Order Number:</label>
+            <input type="text" class="form-control" id="saleOrderNumber" placeholder="Enter sale order number" required>
+        </div>
+
+
+      <!-- Sales Table -->
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Rate</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="salesTableBody">
+          <!-- Default row -->
+          <!-- <tr>
+            <td><input type="text" class="form-control" id="itemName1" required></td>
+            <td><input type="number" class="form-control" id="quantity1" onchange="calculatePrice(1)" required></td>
+            <td><input type="number" class="form-control" id="rate1" onchange="calculatePrice(1)" required></td>
+            <td id="price1">0.00</td>
+            <td><button type="button" class="btn btn-danger" onclick="removeRow(1)" disabled>Remove</button><button type="button" style="margin-left: 5px;" class="btn btn-primary" onclick="addRow()">Add More</button></td>
+          </tr> -->
+          <tr class="sales-row">
+            <td>
+              <select class="form-control select-item" required></select>
+            </td>
+            <td><input type="number" class="form-control quantity" onchange="calculatePrice(this)" required></td>
+            <td><input type="number" class="form-control rate" onchange="calculatePrice(this)" required></td>
+            <td class="price">0.00</td>
+            <td>
+              <button type="button" class="btn btn-danger" onclick="removeRow(this)" disabled>Remove</button>
+              <button type="button" style="margin-left: 5px;" class="btn btn-primary" onclick="addRow()">Add More</button>
+            </td>
+          </tr>
+          <!-- End of default row -->
+
+
+        </tbody>
+      </table>
+
+      <table class="table tbl-total">
+        <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+
+            </tr>
+          </thead>
+        <tbody>
+            <tr>
+                <td></td>
+
+
+                <td class="txt-right"><label class="form-label txt-right" for="subTotal">Subtotal:</label></td>
+                <td></td>
+                <td class="text-end"> <span class="form-control" id="subTotalValue"></span></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="txt-right"> <label class="form-label txt-right "  for="discount">Discount (%):</label></td>
+                <td class="text-end"> <select class="form-control" id="discount" onchange="updateSubTotal()">
+                    <option value="10" selected>10%</option>
+                  </select></td>
+                  <td><span class="form-control" id="discountedTotal">0.00</span></td>
+                  <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="txt-right"> <label class="form-label txt-right"  for="tax">Tax (%):</label></td>
+                <td class="text-end"> <select class="form-control" id="tax" onchange="updateSubTotal()">
+                    <option value="0" selected>0%</option>
+                    <option value="5" selected>5%</option>
+                    <option value="10">10%</option>
+                    <option value="12">12%</option>
+                    <option value="15">15%</option>
+                    <option value="20">20%</option>
+                    <option value="25">25%</option>
+                    <option value="30">30%</option>
+                    <option value="35">35%</option>
+                    <option value="40">40%</option>
+                    <option value="50">50%</option>
+                  </select></td>
+                  <td><span class="form-control" id="taxAmount">0.00</span></td>
+                  <td></td>
+            </tr>
+
+            <tr>
+                <td></td>
+
+
+                <td class="txt-right"><label class="form-label" for="total">Total:</label></td>
+                <td></td>
+                <td class="text-end"> <span class="form-control" id="total">0.00</span></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button type="button" class="btn btn-success" onclick="createOrder()">Create Order</button></td>
+            </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+      </div>
+
+
+
+      <!-- Create Order Button -->
+
+    </form>
+
+
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Initialize Select2 for the item dropdown
+      $('.select-item').select2({
+        ajax: {
+          url: 'https://localhost:8080/api/inventory',
+          dataType: 'json',
+          delay: 25,
+          processResults: function (data) {
+            return {
+              results: data,
+            };
+          },
+          cache: true,
+        },
+        placeholder: 'Search for an item',
+        minimumInputLength: 1,
+      });
+
+      // Handle typing in the search box
+      $('#salesTableBody').on('select2:typing', '.select-item', function (e) {
+        const searchValue = e.currentTarget.value;
+        // Call your API with the typed search value
+        console.log('Calling API with typed search value:', searchValue);
+      });
+
+
+    });
+
+  // Mock function to simulate the API call with the search value
+  function callApiWithSearchValue(searchValue) {
+    // Replace this with your actual API call
+    console.log('Calling API with typed search value:', searchValue);
+  }
+    document.addEventListener('DOMContentLoaded', function() {
+    // Get the input element by its ID
+    const saleOrderNumber = document.getElementById('saleOrderNumber');
+    const currentDate = new Date();
+    // Set the value
+    saleOrderNumber.value = generateSaleOrderNumber(currentDate);;
+
+    // Make it readonly
+    saleOrderNumber.readOnly = true;
+    });
+    function calculatePrice(index) {
+      const quantity = parseFloat(document.getElementById(`quantity${index}`).value) || 0;
+      const rate = parseFloat(document.getElementById(`rate${index}`).value) || 0;
+      const price = quantity * rate;
+      document.getElementById(`price${index}`).textContent = price.toFixed(2);
+
+      updateSubTotal();
+    }
+
+    function addRow() {
+      const tableBody = document.getElementById('salesTableBody');
+      const newIndex = tableBody.children.length + 1;
+
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td><select class="form-control select-item" id="itemName${newIndex}" required></select></td>
+        <td><input type="text" class="form-control" id="itemName${newIndex}" required></td>
+        <td><input type="number" class="form-control" id="quantity${newIndex}" onchange="calculatePrice(${newIndex})" required></td>
+        <td><input type="number" class="form-control" id="rate${newIndex}" onchange="calculatePrice(${newIndex})" required></td>
+        <td id="price${newIndex}">0.00</td>
+        <td><button type="button" class="btn btn-danger" onclick="removeRow(${newIndex})">Remove</button></td>
+      `;
+
+      tableBody.appendChild(newRow);
+      updateRemoveButtonState();
+    }
+
+    function removeRow(index) {
+      const tableBody = document.getElementById('salesTableBody');
+      const rowToRemove = document.getElementById(`itemName${index}`).closest('tr');
+      tableBody.removeChild(rowToRemove);
+      updateRemoveButtonState();
+      updateSubTotal();
+    }
+
+    function updateRemoveButtonState() {
+      const tableBody = document.getElementById('salesTableBody');
+      const rows = tableBody.children;
+
+      // Enable "Remove" button for all rows except the first one
+      for (let i = 0; i < rows.length; i++) {
+        const removeButton = rows[i].querySelector('button');
+        removeButton.disabled = (rows.length <= 1);
+      }
+    }
+
+    function updateSubTotal() {
+      const tableBody = document.getElementById('salesTableBody');
+      const rows = tableBody.children;
+
+      let subTotal = 0;
+
+      for (let i = 0; i < rows.length; i++) {
+        const price = parseFloat(rows[i].querySelector('[id^="price"]').textContent) || 0;
+        subTotal += price;
+      }
+
+      const discount = parseFloat(document.getElementById('discount').value) || 0;
+      const tax = parseFloat(document.getElementById('tax').value) || 0;
+      const discountedTotal = subTotal - (subTotal * (discount / 100));
+      const taxAmount = discountedTotal * (tax / 100);
+      const total = discountedTotal + taxAmount;
+
+      document.getElementById('subTotalValue').textContent = subTotal.toFixed(2);
+      document.getElementById('discountedTotal').textContent = discountedTotal.toFixed(2);
+      document.getElementById('taxAmount').textContent = taxAmount.toFixed(2);
+      document.getElementById('total').textContent = total.toFixed(2);
+    }
+
+    function createOrder() {
+  // Gather data to send in the API request
+  const customerName = document.getElementById('customerName').value;
+  const phoneNumber = document.getElementById('phoneNumber').value;
+
+  const saleOrderNumber = document.getElementById('saleOrderNumber').value;
+
+  const items = [];
+  const tableBody = document.getElementById('salesTableBody');
+  const rows = tableBody.children;
+
+  for (let i = 0; i < rows.length; i++) {
+    const itemName = document.getElementById(`itemName${i + 1}`).value;
+    const quantity = parseFloat(document.getElementById(`quantity${i + 1}`).value) || 0;
+    const rate = parseFloat(document.getElementById(`rate${i + 1}`).value) || 0;
+    const price = quantity * rate;
+
+    items.push({
+      itemName,
+      quantity,
+      rate,
+      price,
+    });
+  }
+
+  // Calculate the total
+  const total = parseFloat(document.getElementById('total').textContent);
+
+  // Check if the total is greater than zero
+  if (total <= 0) {
+    alert('Total amount must be greater than zero. Please add items to the order.');
+    return;
+  }
+
+  // Prepare the data to send in the API request
+  const orderData = {
+    customerName,
+    phoneNumber,
+    saleOrderNumber:saleOrderNumber,
+    items,
+    subTotal: parseFloat(document.getElementById('subTotalValue').textContent),
+    discount: parseFloat(document.getElementById('discount').value),
+    discountedTotal: parseFloat(document.getElementById('discountedTotal').textContent),
+    tax: parseFloat(document.getElementById('tax').value),
+    taxAmount: parseFloat(document.getElementById('taxAmount').textContent),
+    total,
+  };
+
+  // Replace the following URL and method with your actual API details
+  const apiUrl = 'http://localhost:8080/api/orders';
+  const method = 'POST';
+
+  // Make the API call
+  fetch(apiUrl, {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(orderData),
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Handle the API response here
+    console.log('API Response:', data);
+    alert('Order created successfully!');
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Error creating order. Please try again.');
+  });
+}
+
+function generateSaleOrderNumber(date) {
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+
+  return `${year}${month}${day}${hours}${minutes}`;
+}
+</script>
+</body>
+</html>

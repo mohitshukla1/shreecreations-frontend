@@ -1,0 +1,830 @@
+<!doctype html>
+<!--
+   * Bootstrap Simple Admin Template
+   * Version: 2.1
+   * Author: Alexis Luna
+   * Website: https://github.com/alexis-luna/bootstrap-simple-admin-template
+   -->
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Shree Creations</title>
+      <link href="assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+      <link href="assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+      <link href="assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+      <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="assets/css/master.css" rel="stylesheet">
+      <link href="assets/vendor/flagiconcss/css/flag-icon.min.css" rel="stylesheet">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+      <style>
+         th {
+         width: 20%;
+         }
+         .tbl-total td, .table th {
+         padding: 3px 10px 0px 0px;
+         vertical-align: middle;
+         border-top: none;
+         }
+         .txt-right{
+         text-align: right;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="wrapper">
+         <nav id="sidebar">
+            <div class="sidebar-header">
+               <span style="color:gold">Shree Creations</span>
+               <!-- <img src="assets/img/logo.jpg" height="20px" width="50px" alt="bootraper logo" class="app-logo"> -->
+            </div>
+            <ul class="list-unstyled components text-secondary">
+
+               <li>
+                  <a href="#uielementsmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Sale</a>
+                  <ul class="collapse list-unstyled" id="uielementsmenu">
+
+                     <li>
+                        <a href="sale.html">Sale Orders (GST)</a>
+                     </li>
+
+                     <li>
+                        <a href="normalSale.html">Sale Orders (Normal)</a>
+                     </li>
+                     <li>
+                        <a href="allSales.html">All Sales</a>
+                     </li>
+
+                  </ul>
+               </li>
+               <li>
+                  <a href="#uielementsinventory" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Inventory</a>
+                  <ul class="collapse list-unstyled" id="uielementsinventory">
+                      <li>
+                          <a href="inventory.html">Inventory</a>
+                      </li>
+                      <li>
+                          <a href="allInventory.html">All Inventory</a>
+                      </li>
+
+
+                  </ul>
+              </li>
+              <li>
+               <a href="#uielementsReport" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down">Reports</a>
+               <ul class="collapse list-unstyled" id="uielementsReport">
+                  <li>
+                     <a href="saleReport.html">Sale Report</a>
+                  </li>
+                  <li>
+                     <a href="customer.html">Customers</a>
+                 </li>
+               </ul>
+            </li>
+            </ul>
+         </nav>
+         <div id="body" class="active">
+
+            <div class="pg-title">
+               <h2 class="page-title">Return Order  <span id="orderNumber"></span></h2>
+            </div>
+            <!-- end of navbar navigation -->
+            <div class="content">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-lg-8">
+                        <div class="card">
+                           <div class="container mt-5">
+                              <form id="salesForm">
+                                 <!-- Customer Information -->
+                                 <div class="form-row row g-2">
+                                    <div class="col">
+                                       <label for="name" class="form-label sr-only" for="customerName">Customer Name</label>
+                                       <input type="text" class="form-control" id="customerName" placeholder="Enter customer name" required>
+                                    </div>
+                                    <div class="col">
+                                       <label for="username" class="form-label sr-only" for="phoneNumber">Phone Number:</label>
+                                       <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+                                    </div>
+                                    <div class="col">
+                                       <label for="username" class="form-label sr-only" for="saleOrderNumber">Sale Order Number:</label>
+                                       <input type="text" class="form-control" id="saleOrderNumber" placeholder="Enter sale order number" required>
+                                    </div>
+
+
+                                    <!-- Sales Table -->
+                                    <table class="table">
+                                       <thead>
+                                          <tr>
+                                             <th>Item Name</th>
+                                             <th>Quantity</th>
+                                             <th>Rate</th>
+                                             <th>Discount</th>
+                                             <th>Price</th>
+                                             <th>Action</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody id="salesTableBody">
+                                          <!-- Default row -->
+                                          <tr>
+                                             <td><select class="form-control select-item" id="select1" style="width: 100%;"></td>
+                                             <td><input type="number" class="form-control" value="1" id="quantity1" onchange="calculatePrice(1)" required></td>
+                                             <td><input type="number" class="form-control" id="rate1" onchange="calculatePrice(1)" required readonly></td>
+                                             <td class="text-end">
+                                                <select class="form-control " id="discount1" onchange="addDiscountOnSingal(1)">
+                                                   <option value="0" selected>0%</option>
+                                                   <option value="10" >10%</option>
+                                                   <option value="12">12%</option>
+                                                   <option value="15">15%</option>
+                                                   <option value="20">20%</option>
+                                                   <option value="25">25%</option>
+                                                   <option value="30">30%</option>
+                                                   <option value="50">50%</option>
+                                                </select>
+                                             </td>
+                                             <td class="" id="price1">0.00</td>
+                                             <td style="white-space: nowrap;">
+                                                <button type="button" class="btn btn-danger" onclick="removeRow(1)" disabled="">
+                                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                                </button>
+                                                <button type="button" style="margin-left: 5px;" class="btn btn-primary" onclick="addRow()">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                </button>
+                                            </td>
+                                          </tr>
+                                          <!-- End of default row -->
+                                       </tbody>
+                                    </table>
+                                    <table class="table tbl-total">
+                                       <thead>
+                                          <tr>
+                                             <th></th>
+                                             <th></th>
+                                             <th></th>
+                                             <th></th>
+                                             <th></th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr>
+                                             <td></td>
+                                             <td class="txt-right"><label class="form-label txt-right" for="subTotal">Subtotal:</label></td>
+                                             <td></td>
+                                             <td> <span class="form-control" id="subTotalValue">0.00</span></td>
+                                             <td></td>
+                                          </tr>
+
+
+                                          <tr>
+                                             <td></td>
+                                             <td class="txt-right"><label class="form-label" for="total">Total:</label></td>
+                                             <td></td>
+                                             <td> <span class="form-control" id="total">0.00</span></td>
+                                             <td></td>
+                                          </tr>
+                                          <tr>
+                                             <td></td>
+                                             <td class="txt-right"><label class="form-label" for="advance">Advance:</label></td>
+                                             <td></td>
+                                             <td>
+                                                <input type="number" class="form-control" id="advance"  readonly>
+
+                                             <td></td>
+                                          </tr>
+                                          <tr>
+                                             <td></td>
+                                             <td col-span="2" class="txt-right"><label class="form-label" for="remaining"><b>Remaning Amount:</b></label></td>
+                                             <td></td>
+                                             <td>
+                                                <input type="number" class="form-control" id="remaining">
+
+                                             <td></td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                     <table class="table tbl-total">
+                                       <thead>
+                                          <tr>
+                                             <th></th>
+                                             <th></th>
+                                             <th></th>
+                                             <th></th>
+                                             <th></th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr style="border-top: 5px solid #bdbaba;">
+
+                                             <td><label class="form-label" for="total">Payment Type:</label></td>
+                                             <td>
+                                              <select class="form-control" id="paymentMode">
+                                              <option value="Online" selected>Online</option>
+                                              <option value="Cash">Cash</option>
+                                              </select>
+                                           </td>
+                                           <td><label class="form-label" for="total">Final Payment</label></td>
+                                             <td>
+                                                <input type="text" class="form-control" id="finalPayment">
+                                             </td>
+
+                                             <td></td>
+                                          </tr>
+                                         <tr>
+                                          <td><label class="form-label" for="total">Amount received</label></td>
+                                          <td><input type="text" class="form-control" id="amountReceived" onchange="updatechange()"></td>
+                                          <td> <label class="form-label" class="form-control" for="change">Change</label></td>
+                                          <td>
+                                             <input type="text" readonly="true" class="form-control" id="change" onchange="updatechange()">
+                                           </td>
+
+                                          <td></td>
+                                       </tr>
+
+                                       <tr>
+
+                                          <td class="txt-right"> <label class="form-label" class="form-control" for="change">Notes</label></td>
+                                          <td >
+                                             <textarea  class="form-control" id="notes" rows="4" cols="50"></textarea>
+                                           </td>
+                                          <td></td>
+
+                                           <td></td>
+                                          <td></td>
+                                       </tr>
+
+                                          <tr>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td><button type="button" class="btn btn-success" onclick="modifyOrder()">Modify Order</button></td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                           </div>
+
+
+                           <!-- Create Order Button -->
+                           </form>
+                        </div>
+                     </div>
+                     <div class="col-lg-4">
+
+                        <div class="card" id="printThis">
+
+                                <div style="font-size: 14px; text-align: center;"><b>Sale Invoice</b></div>
+
+                                               <div class="card-body">
+                                                   <div class="invoice-title">
+                                                       <p class="float-end font-size-15" style="font-size: 12px;">Invoice No. <b><span id="saleInvoiceNumber"></span></b> <br/>Invoice Date: <b><span id="invoiceDate"></span></b> <br/>Order No: <b><span id="invoiceSaleOrderNumber"></span></b></p>
+                                                       <div>
+                                                          <h6 class="mb-1 text-muted"><b>Shree Creations</b></h6>
+                                                       </div>
+                                                       <div class="text-muted">
+                                                           <p class="mb-1" style="font-size: 12px;">645/034 sarla complex 60 feet road, <br/>Jankipuram vistaar, Lucknow 226021
+
+                                                            <br/>Contact: 9140263969, 8960931924
+                                                        </p>
+                                                           <!-- <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> xyz@987.com</p> -->
+
+                                                       </div>
+                                                   </div>
+
+                                                   <hr class="my-2">
+
+                                                   <div class="row">
+                                                       <div class="col-sm-6">
+                                                           <div class="text-muted">
+
+                                                                <h6 class="mb-1 text-muted">Bill To:</h6>
+
+                                                               <p style="font-size: 12px;"><b><span id="invoiceCustomerName"></span></b> <br/>Contact: <b><span id="invoicePhoneNumber"></span></b></p>
+                                                           </div>
+                                                       </div>
+
+                                                   </div>
+                                                   <!-- end row -->
+
+                                                   <div>
+                                                       <p style="font-size: 14px;">Order Summary</p>
+
+                                                       <div class="table-responsive">
+                                                           <table class="table align-middle table-nowrap table-centered mb-0">
+                                                               <thead>
+                                                                <tr>
+                                                                    <th style="width: 70px;"></th>
+                                                                    <th>Item</th>
+                                                                    <th>Price</th>
+                                                                    <th>Quantity</th>
+                                                                    <th>Discount(%)</th>
+                                                                    <th class="text-end" style="width: 120px;">Total</th>
+                                                                </tr>
+
+                                                               </thead><!-- end thead -->
+                                                               <tbody id="allordersBody">
+
+
+                                                               </tbody><!-- end tbody -->
+                                                           </table><!-- end table -->
+                                                           <table class="table align-middle table-nowrap table-centered mb-0">
+                                                            <thead class="subtotal">
+                                                                <tr>
+                                                                    <th style="width: 70px;"></th>
+                                                                    <th></th>
+                                                                    <th></th>
+                                                                    <th></th>
+                                                                    <th class="text-end" style="width: 120px;"></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="subtotal">
+                                                                 <!-- end tr -->
+
+                                                                   <!-- end tr -->
+                                                                   <tr>
+                                                                    <th scope="row" colspan="4" class="text-end font-12" >Sub Total</th>
+                                                                    <td class="text-end"><span id="invoiceSubTotal"></span></td>
+                                                                </tr>
+                                                                <!-- end tr -->
+
+
+
+                                                                <!-- end tr -->
+                                                                <tr>
+                                                                    <th scope="row" colspan="4" class="border-0 text-end font-12">Total</th>
+                                                                    <td class="border-0 text-end"><p class="m-0 fw-semibold" style="font-size: 14px;"><span id="invoiceTotal"></span></p></td>
+                                                                </tr>
+                                                                <!-- end tr -->
+                                                            </tbody>
+                                                           </table>
+                                                       </div><!-- end table responsive -->
+
+                                                   </div>
+                                               </div>
+
+
+                               </div>
+
+
+
+
+
+                    </div>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+      <script src="assets/vendor/jquery/jquery.min.js"></script>
+      <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="assets/vendor/datatables/datatables.min.js"></script>
+      <script src="assets/js/initiate-datatables.js"></script>
+      <script src="assets/js/script.js"></script>
+        <!-- jQuery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- Bootstrap JS -->
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <!-- Select2 JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+      <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+      <script>
+
+         let returnItemsId = [];
+        function getQueryStringParameters() {
+                const queryString = window.location.search.substring(1);
+                const params = {};
+
+                queryString.split('&').forEach(param => {
+                    const [key, value] = param.split('=');
+                    params[key] = decodeURIComponent(value.replace(/\+/g, ' '));
+                });
+
+                return params;
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+           // Example usage:
+            const queryParams = getQueryStringParameters();
+            console.log(queryParams);
+            getAllOrders( queryParams.id);
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+         // Get the input element by its ID
+         const saleOrderNumber = document.getElementById('saleOrderNumber');
+         const currentDate = new Date();
+         // Set the value
+         saleOrderNumber.value = generateSaleOrderNumber(currentDate);;
+
+         // Make it readonly
+         saleOrderNumber.readOnly = true;
+      });
+       function getAllOrders(id) {
+         const apiUrl = 'http://localhost:8080/api/orders/' + id;
+         const method = 'GET';
+
+         // Make the API call
+         fetch(apiUrl, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the API response here
+            console.log('API Response:', data);
+
+
+            if (data.discount == 0) {
+                document.getElementById('discount').innerHTML = "";
+            }
+
+            document.getElementById('invoiceSubTotal').textContent = data.subTotal;
+            document.getElementById('invoiceTotal').textContent = data.total;
+
+            document.getElementById('invoiceCustomerName').textContent = data.customerName;
+            document.getElementById('invoicePhoneNumber').textContent = "+91-" + data.phoneNumber;
+            document.getElementById('invoiceSaleOrderNumber').textContent = data.saleOrderNumber;
+            document.getElementById('saleInvoiceNumber').textContent = data.invoiceNumber;
+            document.getElementById('invoiceDate').textContent = data.invoiceDate;
+
+
+
+            document.getElementById('customerName').value = data.customerName;
+            document.getElementById('phoneNumber').value = "+91-" + data.phoneNumber;
+
+            const tableBody = document.getElementById('allordersBody');
+            for (let x = 0; x < data.items.length; x++) {
+                const item = data.items[x];
+
+                if (Number(item.quantity) > 1) {
+                    let quantity = Number(item.quantity);
+                    for (let y = 0; y < quantity; y++) {
+                        let newRows = document.createElement('tr');
+                        newRows.innerHTML = `
+                        <td scope="row"><input type="checkbox" objid="${item._id}" id="item-qaunt-${y}" value="${item.price/quantity}" onclick="addToadvanceSub(${y})" /></td>
+                        <td><p class="text-muted mb-0">${item.itemName} ${item.itmeCode ? item.itmeCode : ""} ${item.size ? item.size : ""} </p></td>
+                        <td>${item.rate}</td>
+                        <td>1</td>
+                        <td>${item.discount > 0 ? item.discount : ""}</td>
+                        <td class="text-end">${item.price/quantity}</td>
+                    `;
+                        tableBody.appendChild(newRows);
+                    }
+                } else {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td scope="row"><input type="checkbox" objid="${item._id}" id="item-${x}" value="${item.price}" onclick="addToadvance(${x})" /></td>
+                        <td><p class="text-muted mb-0">${item.itemName} ${item.itmeCode ? item.itmeCode : ""} ${item.size ? item.size : ""} </p></td>
+                        <td>${item.rate}</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.discount > 0 ? item.discount : ""}</td>
+                        <td class="text-end">${item.price}</td>
+                    `;
+                    tableBody.appendChild(newRow);
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error creating order. Please try again.');
+        });
+}        function addToadvanceSub(y) {
+
+            let checkbox = document.getElementById(`item-qaunt-${y}`);
+
+            let objid = checkbox.getAttribute("objid")
+            if (checkbox.checked) {
+               returnItemsId.push(objid)
+               addToAdvance(checkbox.value);
+            } else {
+               returnItemsId.pop(objid)
+               subtractFromAdvance(checkbox.value);
+            }
+
+         }
+
+         function addToadvance(x) {
+
+            let checkbox = document.getElementById(`item-${x}`);
+            let objid = checkbox.getAttribute("objid")
+
+            if (checkbox.checked) {
+               returnItemsId.push(objid)
+               addToAdvance(checkbox.value);
+            } else {
+               returnItemsId.pop(objid)
+               subtractFromAdvance(checkbox.value);
+            }
+
+         }
+
+         function addToAdvance(price) {
+            let advance = document.getElementById('advance').value
+
+         advance = Number(advance) + Number(price);
+         document.getElementById('advance').value = advance;
+         updateSubTotal();
+         }
+
+         function subtractFromAdvance(price) {
+            let advance = document.getElementById('advance').value
+
+         advance = Number(advance) - Number(price);
+         document.getElementById('advance').value = advance;
+         updateSubTotal();
+         }
+
+
+            function initializeSelect(selector) {
+               $(selector).select2({
+                  ajax: {
+                  url: 'http://localhost:8080/api/inventory/',
+                  dataType: 'json',
+                  delay: 250,
+                  processResults: function (data) {
+                     const mappedData = data.map(item => ({
+                        id: item.id,
+                        text: item.name + " ( "+item.itmeCode+" )",
+                        sellingPrice: item.sellingPrice,
+                        itmeCode:item.itmeCode
+                     }));
+
+                     return {
+                        results: mappedData,
+                     };
+                  },
+                  cache: true,
+                  },
+                  placeholder: 'Search for an item',
+                  minimumInputLength: 1,
+               }).on('select2:select', function (e) {
+                  const selectedValue = e.params.data.text;
+                  const sellingPrice = e.params.data.sellingPrice;
+
+                  console.log('Calling API with selected value:', selectedValue);
+
+                  // Get the index of the selected element
+                  const index = $(this).attr('id').match(/\d+/)[0];
+
+                  // Update the corresponding "Selling Price" and "Quantity" inputs
+                  $(`#rate${index}`).val(sellingPrice);
+                  $(`.quantity#quantity${index}`).val(1); // Set a default quantity value
+                  calculatePrice(index)
+               });
+            }
+
+
+
+            $(document).ready(function () {
+               initializeSelect('.select-item');
+            });
+
+
+
+
+         function calculatePrice(index) {
+           const quantity = parseFloat(document.getElementById(`quantity${index}`).value) || 0;
+           const rate = parseFloat(document.getElementById(`rate${index}`).value) || 0;
+           const discount = parseFloat(document.getElementById(`discount${index}`).value) || 0;
+
+           const price = quantity * rate;
+           const discountedTotal = price - (price * (discount / 100));
+           const total = Math.round(discountedTotal);
+           document.getElementById(`price${index}`).textContent = total.toFixed(2);
+
+           updateSubTotal();
+         }
+         function addDiscountOnSingal(index) {
+           const quantity = parseFloat(document.getElementById(`quantity${index}`).value) || 0;
+           const rate = parseFloat(document.getElementById(`rate${index}`).value) || 0;
+           const price = quantity * rate;
+
+
+
+           const discount = parseFloat(document.getElementById(`discount${index}`).value) || 0;
+
+         const discountedTotal = price - (price * (discount / 100));
+         const total = Math.round(discountedTotal);
+
+
+
+           document.getElementById(`price${index}`).textContent = total.toFixed(2);
+
+           updateSubTotal();
+         }
+
+
+         function addRow() {
+           const tableBody = document.getElementById('salesTableBody');
+           const newIndex = tableBody.children.length + 1;
+
+           const newRow = document.createElement('tr');
+           newRow.innerHTML = `
+             <td><select class="form-control select-item" id="select${newIndex}" style="width: 100%;"></select></td>
+             <td><input  type="number" class="form-control" id="quantity${newIndex}" value="1" onchange="calculatePrice(${newIndex})" required></td>
+             <td><input   type="number" class="form-control" id="rate${newIndex}" onchange="calculatePrice(${newIndex})" required readonly></td>
+             <td class="text-end">
+                <select class="form-control" id="discount${newIndex}" onchange="addDiscountOnSingal(${newIndex})">
+                    <option value="0" selected>0%</option>
+                    <option value="10" >10%</option>
+                    <option value="12">12%</option>
+                    <option value="15">15%</option>
+                    <option value="20">20%</option>
+                    <option value="25">25%</option>
+                    <option value="25">25%</option>
+                    <option value="30">30%</option>
+                    <option value="50">50%</option>
+                </select>
+            </td>
+             <td  id="price${newIndex}">0.00</td>
+             <td><button type="button" class="btn btn-danger" onclick="removeRow(${newIndex})"> <i class="fa fa-minus" aria-hidden="true"></i></button></td>
+           `;
+
+           tableBody.appendChild(newRow);
+           updateRemoveButtonState();
+           initializeSelect(`#select${newIndex}`);
+         //   initializeSelect(newRow.find('.select-item'));
+         }
+
+         function removeRow(index) {
+           const tableBody = document.getElementById('salesTableBody');
+           const rowToRemove = document.getElementById(`select${index}`).closest('tr');
+           tableBody.removeChild(rowToRemove);
+           updateRemoveButtonState();
+           updateSubTotal();
+         }
+
+         function updateRemoveButtonState() {
+           const tableBody = document.getElementById('salesTableBody');
+           const rows = tableBody.children;
+
+           // Enable "Remove" button for all rows except the first one
+           for (let i = 0; i < rows.length; i++) {
+             const removeButton = rows[i].querySelector('button');
+             removeButton.disabled = (rows.length <= 1);
+           }
+         }
+
+
+         function updatechange() {
+            const amountReceived = document.getElementById('amountReceived').value;
+            const remaining  = document.getElementById('remaining').value;
+            console.log("amountReceived",amountReceived);
+            console.log("remaining",remaining)
+            document.getElementById('change').value = Number(amountReceived)- Number(remaining);
+         }
+
+         function updateSubTotal() {
+           const tableBody = document.getElementById('salesTableBody');
+           const rows = tableBody.children;
+
+           let subTotal = 0;
+
+           for (let i = 0; i < rows.length; i++) {
+             const price = parseFloat(rows[i].querySelector('[id^="price"]').textContent) || 0;
+             subTotal += price;
+           }
+
+        //    const discount = parseFloat(document.getElementById('discount').value) || 0;
+
+        //    const discountedTotal = subTotal - (subTotal * (discount / 100));
+           let total = Math.round(subTotal);
+           total = total.toFixed(2)
+
+           let advance = document.getElementById('advance').value;
+           advance = Number(advance)
+           console.log("advanceadvanceadvanceadvance",advance)
+           let remainingAmount = total -advance;
+           document.getElementById('remaining').value = remainingAmount
+
+
+
+           document.getElementById('finalPayment').value = remainingAmount;
+           document.getElementById('subTotalValue').textContent = subTotal.toFixed(2);
+        //    document.getElementById('discountedTotal').textContent = discountedTotal.toFixed(2);
+           document.getElementById('total').textContent = total;
+         }
+
+         function modifyOrder() {
+         // Gather data to send in the API request
+         const customerName = document.getElementById('customerName').value;
+         const phoneNumber = document.getElementById('phoneNumber').value;
+
+         const paymentMode = document.getElementById('paymentMode').value;
+         const saleOrderNumber = document.getElementById('saleOrderNumber').value;
+         const notes = document.getElementById('notes').value;
+         const items = [];
+         const tableBody = document.getElementById('salesTableBody');
+         const finalPayment = document.getElementById('finalPayment').value
+         const rows = tableBody.children;
+         const advance = document.getElementById('advance').value
+         const invoiceNumber = document.getElementById('saleInvoiceNumber').textContent
+         for (let i = 0; i < rows.length; i++) {
+
+         const itemName = document.getElementById(`select${i + 1}`).value;
+
+         const quantity = parseFloat(document.getElementById(`quantity${i + 1}`).value) || 0;
+         const rate = parseFloat(document.getElementById(`rate${i + 1}`).value) || 0;
+
+         const price = quantity * rate;
+
+
+         const discount = parseFloat(document.getElementById(`discount${i+1}`).value) || 0;
+
+         let  discountedTotal = price - (price * (discount / 100));
+         discountedTotal = Math.round(discountedTotal);
+
+
+
+         items.push({
+           itemName,
+           quantity,
+           rate,
+           price:discountedTotal,
+           discount
+         });
+         }
+
+         // Calculate the total
+         const total = parseFloat(document.getElementById('total').textContent);
+         if(customerName ==""){
+            alert("customer name can't be empty")
+         }
+
+         if(phoneNumber ==""){
+            alert("customer name can't be empty")
+         }
+         // Check if the total is greater than zero
+         if (total <= 0) {
+         alert('Total amount must be greater than zero. Please add items to the order.');
+         return;
+         }
+
+         // Prepare the data to send in the API request
+         const orderData = {
+         customerName,
+         phoneNumber,
+         saleOrderNumber:saleOrderNumber,
+         items,
+         subTotal: parseFloat(document.getElementById('subTotalValue').textContent),
+        //  discount: parseFloat(document.getElementById('discount').value),
+        //  discountedTotal: parseFloat(document.getElementById('discountedTotal').textContent),
+         total,
+         paymentMode,
+         notes,
+         finalPayment,
+         returnItemsId,
+         remaining: Number(document.getElementById('remaining').value),
+         advance,
+         invoiceNumber
+         };
+
+         // Replace the following URL and method with your actual API details
+         const apiUrl = 'http://localhost:8080/api/orders/returnOrder';
+         const method = 'POST';
+
+         // Make the API call
+         fetch(apiUrl, {
+         method: method,
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(orderData),
+         })
+         .then(response => response.json())
+         .then(data => {
+         // Handle the API response here
+         console.log('API Response:', data);
+         alert('Order created successfully!');
+
+         })
+         .catch(error => {
+         console.error('Error:', error);
+         alert('Error creating order. Please try again.');
+         });
+         }
+
+         function generateSaleOrderNumber(date) {
+            let timestamp = Date.now();
+
+            // Extract the last 7 digits from the timestamp
+            let orderNumber = timestamp % 10000000;
+               return orderNumber;
+            console.log(orderNumber);
+         }
+
+      </script>
+   </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Price Label Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+  <style>
+    .price-label {
+      width: 200px;
+      padding: 10px;
+      border: 1px solid #000;
+      text-align: center;
+    }
+
+    #barcode {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Price Label Generator</h2>
+  
+  <!-- Input boxes for MRP, Size, and ItemCode -->
+  <label for="mrp">MRP:</label>
+  <input type="text" id="mrp" placeholder="Enter MRP">
+  <br>
+  
+  <label for="size">Size:</label>
+  <input type="text" id="size" placeholder="Enter Size">
+  <br>
+
+  <label for="itemCode">Item Code:</label>
+  <input type="text" id="itemCode" placeholder="Enter Item Code">
+  <br>
+
+  <!-- Price Label Container -->
+  <div class="price-label">
+    <h3>Price Label</h3>
+    <!-- Display MRP, Size, and Item Code -->
+    <p id="labelInfo">MRP: N/A | Size: N/A | Item Code: N/A</p>
+    
+    <!-- Place to render the barcode -->
+    <svg id="barcode"></svg>
+  </div>
+
+  <script>
+    // Function to generate barcode and update label information
+    function generatePriceLabel() {
+      // Get input values
+      const mrp = document.getElementById("mrp").value || "N/A";
+      const size = document.getElementById("size").value || "N/A";
+      const itemCode = document.getElementById("itemCode").value || "N/A";
+
+      // Concatenate values to create a unique identifier
+      const barcodeValue = `${mrp}-${size}-${itemCode}`;
+
+      // Display MRP, Size, and Item Code in the label
+      document.getElementById("labelInfo").textContent = `MRP: ${mrp} | Size: ${size} | Item Code: ${itemCode}`;
+
+      // Generate barcode
+      JsBarcode("#barcode", barcodeValue, {
+        format: "CODE128",   // Barcode type
+        displayValue: false   // Do not display the encoded value
+      });
+    }
+
+    // Generate barcode and update label when input values change
+    document.getElementById("mrp").addEventListener("input", generatePriceLabel);
+    document.getElementById("size").addEventListener("input", generatePriceLabel);
+    document.getElementById("itemCode").addEventListener("input", generatePriceLabel);
+
+    // Initial barcode generation
+    generatePriceLabel();
+  </script>
+</body>
+</html>
